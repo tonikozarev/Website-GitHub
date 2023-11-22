@@ -1,0 +1,61 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*{
+    font-weight: 600;
+    scrollbar-color: theme("colors.crust");
+    scrollbar-width: 6px;
+    font-family: "Inter", serif;
+}
+
+.wide{
+  width: 103%;
+}
+
+.title{
+    font-size: 40px;
+}
+
+.card{
+    border-radius: 25px;
+    background-color: theme("colors.crust");
+    padding: 16px;
+}
+
+.contactsCard{
+    border-radius: 10px;
+    background-color: theme("colors.crust");
+    padding: 16px;
+}
+
+.codeCard{
+    border-radius: 10px;
+    background-color: theme("colors.mantle");
+    padding: 16px;
+    font-size: 18px;
+}
+
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: v-bind(tertiaryBackgroundColor);
+}
+
+::-webkit-scrollbar-thumb {
+  background: v-bind(accentColor);
+  border-radius: 48px;
+}
+
+.oneLineText {
+  white-space: nowrap;
+}
+
+.ellipsisText {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
