@@ -9,6 +9,35 @@
     font-family: "Inter", serif;
 }
 
+.language-switcher {
+  position: fixed;
+  top: 25px;
+  right: 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.language-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: normal;
+  border: 1px solid #16181f;
+  border-radius: 8px;
+  padding: 8px;
+  cursor: pointer;
+}
+
+.language-icon {
+  width: 24px;
+  height: 24px;
+}
+
+.language-name {
+  font-size: 14px;
+}
+
 .wide{
   width: 103%;
 }
@@ -24,18 +53,17 @@
 }
 
 .contactsCard{
-    border-radius: 10px;
+    border-radius: 20px;
     background-color: theme("colors.crust");
     padding: 16px;
 }
 
 .codeCard{
-    border-radius: 10px;
+    border-radius: 20px;
     background-color: theme("colors.mantle");
     padding: 16px;
     font-size: 18px;
 }
-
 
 ::-webkit-scrollbar {
   width: 6px;
