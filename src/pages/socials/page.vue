@@ -1,28 +1,48 @@
 <script setup lang="ts">
 import Icon from "@/components/icon.vue";
-import HomeBar from "@/components/home-bar.vue"
-import { onMounted } from "vue";
+import HomeBar from "@/components/home-bar.vue";
+import LanguageSwitcher from "../../components/language-switcher.vue";
+import { onMounted, ref, watchEffect } from "vue";
 import { openLink } from "@/main-viewmodel";
+import { languages, Languages } from "@/languages";
 
 onMounted(()=>{
-    document.title = "Toni Kozarev - Socials";
+    document.title = title.value;
 });
+
+const title = ref((languages as Languages).socials.title.en);
+const email = ref((languages as Languages).socials.content.email.en);
+
+const updateTitle = () => {
+  title.value =
+    window.selectedLanguage === 'de' ? (languages as Languages).socials.title.de : (languages as Languages).socials.title.en;
+};
+
+const updateEmail = () => {
+  email.value =
+    window.selectedLanguage === 'de' ? (languages as Languages).socials.content.email.de : (languages as Languages).socials.content.email.en;
+};
 
 function copy(text: string) {
     navigator.clipboard.writeText(text);
     alert(`Email: "${text}" copied! `);
 }
 
+watchEffect(() => {
+  updateTitle();
+  updateEmail();
+});
 </script>
 
 <template>
     <div class="h-screen overflow-auto bg-base p-large text-text">
+        <LanguageSwitcher />
         <div class="grid grid-cols-12 w-full">
             <div class="2xl:col-span-3 xl:col-span-3 lg:col-span-2 md:col-span-1"></div>
             <div class="2xl:col-span-6 xl:col-span-6 lg:col-span-8 md:col-span-10 col-span-12 min-h-0">
                 <HomeBar />
-                <p class="text-3xl mt-8">Get in Touch</p>
-                    <p class="mt-4 text-2xl">Email</p>
+                <p class="text-3xl mt-8">{{ title }}</p>
+                    <p class="mt-4 text-2xl">{{ email }}</p>
                 <div class="contactsCard flex items-center mt-1">
                     <p class="flex-grow ellipsisText min-w-0">toni.kozarev.tech@gmail.com</p>
                     <button class="ml-4 bg-mantle hover:opacity-95 p-2 rounded-[5px]"
@@ -49,6 +69,13 @@ function copy(text: string) {
                     <div class="flex items-center">
                         <Icon name="xing" class="h-8 w-8" />
                         <p class="ml-4 flex-grow text-start">XING</p>
+                        <Icon name="link" class="h-8 w-8 stroke-text stroke-2" />
+                    </div>
+                </button>
+                <button class="contactsCard hover:bg-mantle w-full mt-1" @click="openLink('https://twitter.com/tonykozarev')">
+                    <div class="flex items-center">
+                        <Icon name="twitter" class="h-8 w-8" />
+                        <p class="ml-4 flex-grow text-start">Twitter</p>
                         <Icon name="link" class="h-8 w-8 stroke-text stroke-2" />
                     </div>
                 </button>
