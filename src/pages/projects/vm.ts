@@ -29,7 +29,7 @@ export let projects: Project[] = [
         tags: ["AR"]
     },
     {
-        name: "Website in GitHub",
+        name: "Website - github.io",
         image: "Website-GitHub.jpg",
         url: "https://github.com/tonikozarev/Website-GitHub",
         gitName: "tonikozarev/Website-GitHub",
