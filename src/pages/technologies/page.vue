@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import HomeBar from "@components/home-bar.vue";
-import LanguageSwitcher from "../../components/language-switcher.vue";
 import { onMounted, ref, watchEffect } from "vue";
 import Card from "./card.vue";
 import { languages, Languages } from "@/languages";
@@ -52,7 +51,6 @@ watchEffect(() => {
 
 <template>
     <div class="h-screen overflow-auto bg-base p-large text-text">
-        <LanguageSwitcher />
         <div class="grid grid-cols-12 w-full">
             <div class="2xl:col-span-3 xl:col-span-3 lg:col-span-2 md:col-span-1"></div>
             <div class="2xl:col-span-6 xl:col-span-6 lg:col-span-8 md:col-span-10 col-span-12">
