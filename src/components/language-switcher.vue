@@ -12,13 +12,9 @@
 </template>
 
 <script setup lang="ts">
-import { useRouter } from 'vue-router';
-
-const router = useRouter();
-
   const changeLanguage = (lang: string) => {
     localStorage.setItem('userLanguagePreference', lang);
     window.selectedLanguage = lang;
-    router.go(0);
+    window.location.reload();
   };
 </script>
