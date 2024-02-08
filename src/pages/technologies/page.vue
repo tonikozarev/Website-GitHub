@@ -1,11 +1,22 @@
 <script setup lang="ts">
 import HomeBar from "@components/home-bar.vue";
-import { onMounted, ref, watchEffect } from "vue";
+import { onMounted, onBeforeUnmount, ref, watchEffect } from "vue";
 import Card from "./card.vue";
 import { languages, Languages } from "@/languages";
 
-onMounted(()=>{
+function disableRefresh(event: KeyboardEvent) {
+  if ((event.ctrlKey && event.key === 'r') || event.key === 'F5') {
+    event.preventDefault();
+  }
+}
+
+onMounted(async () => {
     document.title = title.value;
+    document.addEventListener('keydown', disableRefresh);
+});
+
+onBeforeUnmount(() => {
+  document.removeEventListener('keydown', disableRefresh);
 });
 
 const title = ref((languages as Languages).technologies.title.en);

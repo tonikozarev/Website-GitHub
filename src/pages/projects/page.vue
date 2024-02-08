@@ -1,13 +1,24 @@
 <script setup lang="ts">
 import HomeBar from "@components/home-bar.vue";
 import Icon from "@/components/icon.vue";
-import { onMounted, ref, watchEffect } from "vue";
+import { onMounted, onBeforeUnmount, ref, watchEffect } from "vue";
 import { Project, projects as PROJECTS } from "@pages/projects/vm"
 import { openLink, getImageUrl } from "@/main-viewmodel";
 import { languages, Languages } from "@/languages";
 
+function disableRefresh(event: KeyboardEvent) {
+  if ((event.ctrlKey && event.key === 'r') || event.key === 'F5') {
+    event.preventDefault();
+  }
+}
+
 onMounted(async () => {
     document.title = title.value;
+    document.addEventListener('keydown', disableRefresh);
+});
+
+onBeforeUnmount(() => {
+  document.removeEventListener('keydown', disableRefresh);
 });
 
 const title = ref((languages as Languages).projects.title.en);

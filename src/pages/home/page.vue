@@ -35,17 +35,17 @@ const updateBioCard = () => {
     const arrayEn = [
         "name",
         "moons_old",
-        "motto", "VYBE: Visualize yourself better everyday!",
+        "motto", '"VYBE: Visualize yourself better everyday!"',
         "speaking", '"English", "German", "Bulgarian"',
         "love", '"Dogs 🐶", "Gym 🏋️‍♂️", "Coding 👨‍💻", "Martial arts 🥊", "Video games 🎮"',
         "favorite_languages", '"Kotlin", "C#", "Java"',
-        "hobbies", '"Playing chess ♔","Flying drone 🛪","Reading 🕮"',
+        "hobbies", '"Playing chess ♔", "Flying drone 🛪", "Reading 🕮"',
     ];
 
     const arrayDe = [
         "name", 
         "monde_alt", 
-        "motto", "VYBE: Visualisiere dich jeden Tag besser!",
+        "motto", '"VYBE: Visualisiere dich jeden Tag besser!"',
         "sprechen", '"Englisch", "Deutsch", "Bulgarisch"',
         "liebe", '"Hunde 🐶", "Fitness 🏋️‍♂️", "Programmierung 👨‍💻", "Kampfsport 🥊", "Videospiele 🎮"',
         "lieblingsprogrammiersprachen", '"Kotlin", "C#", "Java"',
