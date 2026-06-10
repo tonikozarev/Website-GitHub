@@ -7,10 +7,12 @@ import Socials from "@pages/socials/page.vue"
 import Root from "@/root.vue"
 import { createApp } from "vue"
 import { createRouter, createWebHistory } from "vue-router"
+import { getSelectedLanguage } from "@/languages"
 
 const routes = [
     { path: "/", name: "home", component: Home },
     { path: "/projects", name: "projects", component: Projects },
+    { path: "/certifications", name: "certifications", component: () => import("@pages/certifications/page.vue") },
     { path: "/technologies", name: "technologies", component: Technologies },
     { path: "/socials", name: "socials", component: Socials },
 ]
@@ -25,5 +27,6 @@ app.use(router);
 
 const userLanguagePreference = localStorage.getItem('userLanguagePreference');
 window.selectedLanguage = userLanguagePreference || "en";
+window.selectedLanguage = getSelectedLanguage();
 
 app.mount("#app");
