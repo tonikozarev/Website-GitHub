@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router';
 import { onMounted, ref, watchEffect } from "vue";
-import { languages, Languages } from "@/languages";
+import { languages, translate } from "@/languages";
 
 const router = useRouter();
 
@@ -9,11 +9,10 @@ onMounted(() => {
   document.title = title.value;
 });
 
-const title = ref((languages as Languages).home.title.en);
+const title = ref(languages.home.title.en);
 
 const updateTitle = () => {
-  title.value =
-    window.selectedLanguage === 'de' ? (languages as Languages).home.title.de : (languages as Languages).home.title.en;
+  title.value = translate(languages.home.title);
 };
 
 watchEffect(() => {

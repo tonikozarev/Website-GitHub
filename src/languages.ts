@@ -1,21 +1,36 @@
+﻿export type LanguageCode = "en" | "de" | "bg";
+
+export interface TranslatedText {
+  en: string;
+  de: string;
+  bg: string;
+}
+
 export interface LanguageObject {
-  title: {
-    en: string;
-    de: string;
-  };
+  title: TranslatedText;
   content: {
-    [key: string]: {
-      en: string;
-      de: string;
-    };
+    [key: string]: TranslatedText;
   };
 }
 
 export interface Languages {
   home: LanguageObject;
   projects: LanguageObject;
+  certifications: LanguageObject;
   technologies: LanguageObject;
   socials: LanguageObject;
+}
+
+export function getSelectedLanguage(): LanguageCode {
+  if (window.selectedLanguage === "de" || window.selectedLanguage === "bg") {
+    return window.selectedLanguage;
+  }
+
+  return "en";
+}
+
+export function translate(text: TranslatedText): string {
+  return text[getSelectedLanguage()];
 }
 
 export const languages: Languages = {
@@ -23,6 +38,7 @@ export const languages: Languages = {
     title: {
       en: "Home",
       de: "Startseite",
+      bg: "Начало",
     },
     content: {},
   },
@@ -30,52 +46,106 @@ export const languages: Languages = {
     title: {
       en: "Projects",
       de: "Projekte",
+      bg: "Проекти",
     },
     content: {
       all: {
         en: "All",
-        de: "Alle"
+        de: "Alle",
+        bg: "Всички",
       },
       source: {
         en: "Source",
-        de: "Quellenangabe"
-      }
+        de: "Quellenangabe",
+        bg: "Код",
+      },
+    },
+  },
+  certifications: {
+    title: {
+      en: "Certifications",
+      de: "Zertifikate",
+      bg: "Сертификати",
+    },
+    content: {
+      filter: {
+        en: "Filter by language",
+        de: "Nach Sprache filtern",
+        bg: "Филтър по език",
+      },
+      all: {
+        en: "All",
+        de: "Alle",
+        bg: "Всички",
+      },
+      english: {
+        en: "English",
+        de: "Englisch",
+        bg: "Английски",
+      },
+      german: {
+        en: "German",
+        de: "Deutsch",
+        bg: "Немски",
+      },
+      bulgarian: {
+        en: "Bulgarian",
+        de: "Bulgarisch",
+        bg: "Български",
+      },
+      select: {
+        en: "Select a certificate",
+        de: "Zertifikat auswählen",
+        bg: "Избери сертификат",
+      },
+      preview: {
+        en: "Preview",
+        de: "Vorschau",
+        bg: "Преглед",
+      },
+      empty: {
+        en: "Add English PDF files to `src/assets/certifications/en/`, German PDF files to `src/assets/certifications/de/`, and Bulgarian PDF files to `src/assets/certifications/bg/`.",
+        de: "Englische PDF-Dateien nach `src/assets/certifications/en/`, deutsche PDF-Dateien nach `src/assets/certifications/de/` und bulgarische PDF-Dateien nach `src/assets/certifications/bg/` legen.",
+        bg: "Добави английски PDF файлове в `src/assets/certifications/en/`, немски PDF файлове в `src/assets/certifications/de/` и български PDF файлове в `src/assets/certifications/bg/`.",
+      },
     },
   },
   technologies: {
     title: {
       en: "Technologies",
       de: "Technologien",
+      bg: "Технологии",
     },
     content: {
       os: {
         en: "OS",
-        de: "Betriebssysteme"
+        de: "Betriebssysteme",
+        bg: "Операционни системи",
       },
       ide: {
         en: "IDEs / Game engines / Editors",
-        de: "IDE-Umgebungen / Spiel-Engine / Quelltext-Editor"
+        de: "IDE-Umgebungen / Spiel-Engine / Quelltext-Editor",
+        bg: "IDE среди / игрови енджини / редактори",
       },
       programming_language: {
         en: "Languages",
-        de: "Programmiersprachen"
+        de: "Programmiersprachen",
+        bg: "Езици за програмиране",
       },
       other: {
         en: "Other technologies",
-        de: "Andere Technologien"
-      }
+        de: "Andere Technologien",
+        bg: "Други технологии",
+      },
     },
   },
   socials: {
     title: {
       en: "Contact",
       de: "Kontakt",
+      bg: "Контакт",
     },
-    content: {
-      email: {
-        en: "Email:",
-        de: "E-Mail-Adresse:"
-      }
-    },
+    content: {},
   },
 };
+
