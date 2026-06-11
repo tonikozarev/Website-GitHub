@@ -1,3 +1,5 @@
+/// <reference types="vite/client" />
+
 interface Window {
-    selectedLanguage?: string;
+    selectedLanguage?: "en" | "de" | "bg" | string;
 }

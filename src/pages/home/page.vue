@@ -1,9 +1,10 @@
-<script setup lang="ts">
+﻿<script setup lang="ts">
 import LanguageSwitcher from "../../components/language-switcher.vue";
 import icon from "../../components/icon.vue";
 import { useRouter } from "vue-router";
 import { onMounted, ref, watchEffect } from "vue";
-import { languages, Languages } from "@/languages";
+import { getImageUrl } from "@/main-viewmodel";
+import { languages, translate } from "@/languages";
 
 const router = useRouter();
 const logoRef = ref();
@@ -12,53 +13,57 @@ onMounted(() => {
   document.title = title.value;
 });
 
-const title = ref((languages as Languages).home.title.en);
+const title = ref(languages.home.title.en);
+const speakingLanguages = [
+    { name: "English", flag: getImageUrl("english-flag.png") },
+    { name: "German", flag: getImageUrl("german-flag.png") },
+    { name: "Bulgarian", flag: getImageUrl("bulgarian-flag.svg") },
+];
 
 const updateTitle = () => {
-  title.value =
-    window.selectedLanguage === 'de' ? (languages as Languages).home.title.de : (languages as Languages).home.title.en;
+  title.value = translate(languages.home.title);
 };
 
 const updateProjectsText = () => {
-  return window.selectedLanguage === 'de' ? (languages as Languages).projects.title.de : (languages as Languages).projects.title.en;
+  return translate(languages.projects.title);
+};
+
+const updateCertificationsText = () => {
+  return translate(languages.certifications.title);
 };
 
 const updateTechnologiesText = () => {
-    return window.selectedLanguage === 'de' ? (languages as Languages).technologies.title.de : (languages as Languages).technologies.title.en;
+    return translate(languages.technologies.title);
 };
 
 const updateGetInTouchText = () => {
-    return window.selectedLanguage === 'de' ? (languages as Languages).socials.title.de : (languages as Languages).socials.title.en;
+    return translate(languages.socials.title);
 };
 
+function getMoonsOld() {
+    const synodicMonthDays = 29.53059;
+    const birthDateUtc = Date.UTC(1996, 4, 13);
+    const nowUtc = Date.now();
+    const elapsedDays = (nowUtc - birthDateUtc) / (1000 * 60 * 60 * 24);
+
+    return Math.max(0, Math.floor(elapsedDays / synodicMonthDays));
+}
+
 const updateBioCard = () => {
-    const arrayEn = [
+    return [
         "name",
         "moons_old",
         "motto", '"VYBE: Visualize yourself better everyday!"',
         "speaking", '"English", "German", "Bulgarian"',
-        "love", '"Dogs 🐶", "Gym 🏋️‍♂️", "Coding 👨‍💻", "Martial arts 🥊", "Video games 🎮"',
-        "favorite_languages", '"Kotlin", "C#", "Java"',
-        "hobbies", '"Playing chess ♔", "Flying drone 🛪", "Reading 🕮"',
+        "love", '"Dogs 🐶", "Gym 🏋️‍♂️", "Coding 👨‍💻", "Mountain biking 🚵", "Chess ♟️", "Friends & family 🤝"',
+        "favorite_languages", '"Java", "Kotlin", "C#"',
     ];
-
-    const arrayDe = [
-        "name", 
-        "monde_alt", 
-        "motto", '"VYBE: Visualisiere dich jeden Tag besser!"',
-        "sprechen", '"Englisch", "Deutsch", "Bulgarisch"',
-        "liebe", '"Hunde 🐶", "Fitness 🏋️‍♂️", "Programmierung 👨‍💻", "Kampfsport 🥊", "Videospiele 🎮"',
-        "lieblingsprogrammiersprachen", '"Kotlin", "C#", "Java"',
-        "hobbys", '"Schach spielen ♔", "Drohne fliegen 🛪", "Lesen 🕮"',
-    ];
-
-    return window.selectedLanguage === 'de' ? arrayDe : arrayEn;
 };
-
 
 watchEffect(() => {
   updateTitle();
   updateProjectsText();
+  updateCertificationsText();
   updateTechnologiesText();
   updateGetInTouchText();
   updateBioCard();
@@ -76,20 +81,23 @@ watchEffect(() => {
                     <img src="@images/animated.png" class="h-[220px] rounded-full" ref="logoRef" /> 
                     <div class="title">{{ title }}</div>
                 </div>
-                <div class="mt-6 bg-crust rounded-[18px] flex 2xl:flex-row xl:flex-row lg:flex-row md:flex-row sm:flex-row flex-col overflow-hidden">
-                    <button class="flex-grow p-3 flex flex-col items-center justify-center hover:bg-mantle min-w-[150px]"
+                <div class="mt-6 bg-crust rounded-[18px] grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 overflow-hidden">
+                    <button class="tile-button"
                         @click="router.push('/projects')">
                         <icon name="laptop" class="h-14 w-14" />
                         <div class="text-lg">{{ updateProjectsText() }}</div>
                     </button>
-                    <div class="verticalDivider"></div>
-                    <button class="flex-grow p-3 flex flex-col items-center justify-center hover:bg-mantle min-w-[150px]"
+                    <button class="tile-button"
+                        @click="router.push('/certifications')">
+                        <icon name="certificate" class="h-14 w-14" />
+                        <div class="text-lg">{{ updateCertificationsText() }}</div>
+                    </button>
+                    <button class="tile-button"
                         @click="router.push('/technologies')">
                         <icon name="tools" class="h-14 w-14" />
                         <div class="text-lg">{{ updateTechnologiesText() }}</div>
                     </button>
-                    <div class="verticalDivider"></div>
-                    <button class="flex-grow p-3 flex flex-col items-center justify-center hover:bg-mantle min-w-[150px]"
+                    <button class="tile-button"
                         @click="router.push('/socials')">
                         <icon name="messages" class="h-14 w-14" />
                         <div class="text-lg">{{ updateGetInTouchText() }}</div>
@@ -102,11 +110,19 @@ watchEffect(() => {
                             <div class="bracket">&nbsp;{</div>
                         </div>
                         <div class="flex oneLineText">&emsp;{{ updateBioCard()[0] }}: <div class="string">&nbsp;"Toni Kozarev"</div>,</div>
-                        <div class="flex oneLineText">&emsp;{{ updateBioCard()[1] }}: <div class="struct">&nbsp;340</div>,</div>
+                        <div class="flex oneLineText">&emsp;{{ updateBioCard()[1] }}: <div class="struct">&nbsp;{{ getMoonsOld() }}</div>,</div>
                         <div class="flex oneLineText">&emsp;{{ updateBioCard()[2] }}: <div class="string">&nbsp;{{ updateBioCard()[3] }}</div>,</div>
                         <div class="flex oneLineText">&emsp;{{ updateBioCard()[4] }}: <div class="vec">&nbsp;</div>
                             <div class="bracket">[</div>
-                            <div class="string">{{ updateBioCard()[5] }}</div>
+                            <div class="string flex items-center gap-2 flex-wrap">
+                                <template v-for="(language, index) in speakingLanguages" :key="language.name">
+                                    <span class="inline-flex items-center gap-1 whitespace-nowrap">
+                                        <span>"{{ language.name }}</span>
+                                        <img :src="language.flag" :alt="`${language.name} flag`" class="inlineFlag" />
+                                        <span>"{{ index < speakingLanguages.length - 1 ? "," : "" }}</span>
+                                    </span>
+                                </template>
+                            </div>
                             <div class="bracket">]</div>,
                         </div>
                         <div class="flex oneLineText">&emsp;{{ updateBioCard()[6] }}: <div class="vec">&nbsp;</div>
@@ -117,11 +133,6 @@ watchEffect(() => {
                         <div class="flex oneLineText">&emsp;{{ updateBioCard()[8] }}: <div class="vec">&nbsp;</div>
                             <div class="bracket">[</div>
                             <div class="string">{{ updateBioCard()[9] }}</div>
-                            <div class="bracket">]</div>,
-                        </div>
-                        <div class="flex oneLineText">&emsp;{{ updateBioCard()[10] }}: <div class="vec">&nbsp;</div>
-                            <div class="bracket">[</div>
-                            <div class="string">{{ updateBioCard()[11] }}</div>
                             <div class="bracket">]</div>
                         </div>
                         <div class="flex bracket oneLineText">}</div>
@@ -154,17 +165,43 @@ watchEffect(() => {
     color: theme("colors.green");
 }
 
+.inlineFlag {
+    width: 1rem;
+    height: 1rem;
+    object-fit: contain;
+    display: inline-block;
+    flex-shrink: 0;
+}
+
 .usize,
 .bracket {
     color: theme("colors.peach");
 }
 
-.verticalDivider {
-    position: relative;
-    top: 0%;
-    bottom: 0%;
-    border: 2px solid theme("colors.mantle");
-    border-radius: 48px;
+.tile-button {
+    min-height: 116px;
+    padding: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 0.5rem;
+}
+
+.tile-button:hover {
+    background-color: theme("colors.mantle");
+}
+
+.tile-button:not(:last-child) {
+    border-right: 2px solid theme("colors.mantle");
+}
+
+@media (max-width: 639px) {
+    .tile-button:not(:last-child) {
+        border-right: 0;
+        border-bottom: 2px solid theme("colors.mantle");
+    }
 }
 
 @keyframes spin {
@@ -177,3 +214,5 @@ watchEffect(() => {
     }
 }
 </style>
+
+

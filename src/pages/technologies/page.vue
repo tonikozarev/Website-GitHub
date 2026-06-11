@@ -2,7 +2,7 @@
 import HomeBar from "@components/home-bar.vue";
 import { onMounted, onBeforeUnmount, ref, watchEffect } from "vue";
 import Card from "./card.vue";
-import { languages, Languages } from "@/languages";
+import { languages, translate } from "@/languages";
 
 function disableRefresh(event: KeyboardEvent) {
   if ((event.ctrlKey && event.key === 'r') || event.key === 'F5') {
@@ -19,36 +19,31 @@ onBeforeUnmount(() => {
   document.removeEventListener('keydown', disableRefresh);
 });
 
-const title = ref((languages as Languages).technologies.title.en);
-const os = ref((languages as Languages).technologies.content.os.en);
-const ide = ref((languages as Languages).technologies.content.ide.en);
-const language = ref((languages as Languages).technologies.content.programming_language.en);
-const other = ref((languages as Languages).technologies.content.other.en);
+const title = ref(languages.technologies.title.en);
+const os = ref(languages.technologies.content.os.en);
+const ide = ref(languages.technologies.content.ide.en);
+const language = ref(languages.technologies.content.programming_language.en);
+const other = ref(languages.technologies.content.other.en);
 
 
 const updateTitle = () => {
-  title.value =
-    window.selectedLanguage === 'de' ? (languages as Languages).technologies.title.de : (languages as Languages).technologies.title.en;
+  title.value = translate(languages.technologies.title);
 };
 
 const updateOs = () => {
-  os.value =
-    window.selectedLanguage === 'de' ? (languages as Languages).technologies.content.os.de : (languages as Languages).technologies.content.os.en;
+  os.value = translate(languages.technologies.content.os);
 };
 
 const updateIde = () => {
-  ide.value =
-    window.selectedLanguage === 'de' ? (languages as Languages).technologies.content.ide.de : (languages as Languages).technologies.content.ide.en;
+  ide.value = translate(languages.technologies.content.ide);
 };
 
 const updateLanguages = () => {
-  language.value =
-    window.selectedLanguage === 'de' ? (languages as Languages).technologies.content.programming_language.de : (languages as Languages).technologies.content.programming_language.en;
+  language.value = translate(languages.technologies.content.programming_language);
 };
 
 const updateOther = () => {
-    other.value =
-    window.selectedLanguage === 'de' ? (languages as Languages).technologies.content.other.de : (languages as Languages).technologies.content.other.en;
+    other.value = translate(languages.technologies.content.other);
 };
 
 watchEffect(() => {

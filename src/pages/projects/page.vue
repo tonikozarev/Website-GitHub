@@ -4,7 +4,7 @@ import Icon from "@/components/icon.vue";
 import { onMounted, onBeforeUnmount, ref, watchEffect } from "vue";
 import { Project, projects as PROJECTS } from "@pages/projects/vm"
 import { openLink, getImageUrl } from "@/main-viewmodel";
-import { languages, Languages } from "@/languages";
+import { languages, translate } from "@/languages";
 
 function disableRefresh(event: KeyboardEvent) {
   if ((event.ctrlKey && event.key === 'r') || event.key === 'F5') {
@@ -21,30 +21,25 @@ onBeforeUnmount(() => {
   document.removeEventListener('keydown', disableRefresh);
 });
 
-const title = ref((languages as Languages).projects.title.en);
-const source = ref((languages as Languages).projects.content.source.en);
-const all = ref((languages as Languages).projects.content.all.en);
+const title = ref(languages.projects.title.en);
+const source = ref(languages.projects.content.source.en);
+const all = ref(languages.projects.content.all.en);
 
 const updateTitle = () => {
-  title.value =
-    window.selectedLanguage === 'de' ? (languages as Languages).projects.title.de : (languages as Languages).projects.title.en;
+  title.value = translate(languages.projects.title);
 };
 
 const updateSource = () => {
-  source.value =
-    window.selectedLanguage === 'de' ? (languages as Languages).projects.content.source.de : (languages as Languages).projects.content.source.en;
+  source.value = translate(languages.projects.content.source);
 };
 
 const updateAll = () => {
-    all.value = 
-    window.selectedLanguage === 'de' ? (languages as Languages).projects.content.all.de : (languages as Languages).projects.content.all.en;
+    all.value = translate(languages.projects.content.all);
     filters.value[0] = all.value;
 };
 
 const filters = ref(["All", "Android", "Web", "AR"]);
-const currentFilterEn = ref("All");
-const currentFilterDe = ref("Alle");
-const currentFilter = window.selectedLanguage === 'de' ? currentFilterDe : currentFilterEn;
+const currentFilter = ref(translate(languages.projects.content.all));
 const projects = ref<Project[]>(PROJECTS);
 const currentProjects = ref<Project[]>(PROJECTS)
 
@@ -52,7 +47,7 @@ const currentProjects = ref<Project[]>(PROJECTS)
 function filterProjects(filter: string) {
     currentFilter.value = filter;
 
-    if (filter == "All" || filter == "Alle") {
+    if (filter == translate(languages.projects.content.all)) {
         currentProjects.value = projects.value
         return
     }
