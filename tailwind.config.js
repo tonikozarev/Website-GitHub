@@ -17,7 +17,9 @@ export default {
         "teal": "#8ad4cb",
         "yellow": "#bb9b49",
         "peach": "#bb7f45",
-        "mauve": "#9d68c1"
+        "mauve": "#9d68c1",
+        "red": "#e06c75",
+        "overlay1": "#8d91a6"
       },
       padding:{
         large: "16px"
@@ -29,4 +31,3 @@ export default {
   },
   plugins: [],
 }
-

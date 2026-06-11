@@ -103,10 +103,55 @@ export const languages: Languages = {
         de: "Vorschau",
         bg: "Преглед",
       },
+      gate_title: {
+        en: "Private certificates",
+        de: "Private Zertifikate",
+        bg: "Лични сертификати",
+      },
+      gate_text: {
+        en: "Enter your code to unlock the certificates.",
+        de: "Gib deinen Code ein, um die Zertifikate freizuschalten.",
+        bg: "Въведи кода, за да отключиш сертификатите.",
+      },
+      code_label: {
+        en: "Code",
+        de: "Code",
+        bg: "Код",
+      },
+      unlock: {
+        en: "Unlock",
+        de: "Entsperren",
+        bg: "Отключи",
+      },
+      lock: {
+        en: "Lock",
+        de: "Sperren",
+        bg: "Заключи",
+      },
+      unlocked: {
+        en: "Unlocked",
+        de: "Freigeschaltet",
+        bg: "Отключено",
+      },
+      locked: {
+        en: "Locked",
+        de: "Gesperrt",
+        bg: "Заключено",
+      },
+      unlock_error: {
+        en: "That code did not unlock the certificates.",
+        de: "Dieser Code konnte die Zertifikate nicht freischalten.",
+        bg: "Този код не отключи сертификатите.",
+      },
+      unlock_success: {
+        en: "Access granted.",
+        de: "Zugriff gewährt.",
+        bg: "Достъпът е разрешен.",
+      },
       empty: {
-        en: "Add English PDF files to `src/assets/certifications/en/`, German PDF files to `src/assets/certifications/de/`, and Bulgarian PDF files to `src/assets/certifications/bg/`.",
-        de: "Englische PDF-Dateien nach `src/assets/certifications/en/`, deutsche PDF-Dateien nach `src/assets/certifications/de/` und bulgarische PDF-Dateien nach `src/assets/certifications/bg/` legen.",
-        bg: "Добави английски PDF файлове в `src/assets/certifications/en/`, немски PDF файлове в `src/assets/certifications/de/` и български PDF файлове в `src/assets/certifications/bg/`.",
+        en: "No certificates match this filter.",
+        de: "Keine Zertifikate passen zu diesem Filter.",
+        bg: "Няма сертификати за този филтър.",
       },
     },
   },
@@ -148,4 +193,3 @@ export const languages: Languages = {
     content: {},
   },
 };
-
