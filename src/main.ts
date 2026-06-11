@@ -13,6 +13,7 @@ const routes = [
     { path: "/", name: "home", component: Home },
     { path: "/projects", name: "projects", component: Projects },
     { path: "/certifications", name: "certifications", component: () => import("@pages/certifications/page.vue") },
+    { path: "/admin", name: "admin", component: () => import("@pages/admin/page.vue") },
     { path: "/technologies", name: "technologies", component: Technologies },
     { path: "/socials", name: "socials", component: Socials },
 ]
